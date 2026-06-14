@@ -1,0 +1,30 @@
+#fixed{
+    border: 1px solid black;
+    inline-size: 200px;
+    block-size: 5px;
+    background-color: black;
+}
+#movable{
+    border:1px solid yellow;
+    block-size:5px;
+    inline-size: 0px;
+    background-color: yellow;
+}
+i
+{
+    font-size:30px;
+}
+img{
+    inline-size:250px;
+    block-size:250px;
+}
+#time{
+    display:flex;
+    justify-content: space-between;
+    inline-size:200px;
+}
+#heart
+{
+    cursor: pointer;
+    transition: 0.3s;
+}
