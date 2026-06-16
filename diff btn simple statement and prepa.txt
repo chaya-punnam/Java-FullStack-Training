@@ -1,0 +1,1 @@
+diff btn simple statement and prepared stmts.

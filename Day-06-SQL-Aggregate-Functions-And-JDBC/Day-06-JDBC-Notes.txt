@@ -1,0 +1,224 @@
+=========================================
+DAY 06 - JDBC (Java Database Connectivity)
+=========================================
+
+What is JDBC?
+-------------
+JDBC (Java Database Connectivity) is a Java API used to connect Java applications with databases such as MySQL, Oracle, PostgreSQL, SQL Server, etc.
+
+Why JDBC?
+----------
+1. Connect Java with Database
+2. Execute SQL Queries
+3. Insert Records
+4. Update Records
+5. Delete Records
+6. Retrieve Data
+
+JDBC Architecture
+-----------------
+
+Java Application
+       |
+       V
+JDBC API
+       |
+       V
+JDBC Driver
+       |
+       V
+MySQL Database
+
+Important JDBC Classes & Interfaces
+------------------------------------
+
+1. DriverManager
+   Used to establish connection with database.
+
+2. Connection
+   Represents database connection.
+
+3. Statement
+   Used to execute static SQL queries.
+
+4. PreparedStatement
+   Used to execute parameterized SQL queries.
+
+5. ResultSet
+   Used to retrieve records from database.
+
+=========================================
+JDBC PROGRAM - USING STATEMENT
+=========================================
+
+Imports:
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+Steps:
+
+Step 1:
+Create URL
+
+String url =
+"jdbc:mysql://localhost:3306/employee_db";
+
+Step 2:
+Provide Username and Password
+
+String username = "root";
+String password = "your_password";
+
+Step 3:
+Create Connection
+
+Connection con =
+DriverManager.getConnection(
+url,
+username,
+password
+);
+
+Step 4:
+Create Statement
+
+Statement st =
+con.createStatement();
+
+Step 5:
+Write Insert Query
+
+String insertQuery =
+"insert into employees values
+(109,'veni',34,45000,'Developer')";
+
+Step 6:
+Execute Query
+
+int rowCount =
+st.executeUpdate(insertQuery);
+
+Step 7:
+Display Result
+
+System.out.println(rowCount);
+System.out.println(
+"Data inserted successfully!"
+);
+
+Step 8:
+Close Resources
+
+st.close();
+con.close();
+
+=========================================
+OUTPUT
+=========================================
+
+Database connection successful!
+
+1
+
+Data inserted successfully!
+
+=========================================
+PREPARED STATEMENT
+=========================================
+
+What is PreparedStatement?
+
+PreparedStatement is a precompiled SQL statement.
+
+Advantages:
+------------
+
+1. Faster Execution
+2. More Secure
+3. Prevents SQL Injection
+4. Reusable Queries
+
+Example:
+
+String insertQuery =
+"insert into employees
+(id,name,age,salary,jobrole)
+values(?,?,?,?,?)";
+
+PreparedStatement ps =
+con.prepareStatement(insertQuery);
+
+ps.setInt(1,200);
+ps.setString(2,"Cook");
+ps.setInt(3,45);
+ps.setInt(4,56000);
+ps.setString(5,"HR");
+
+int rowCount =
+ps.executeUpdate();
+
+System.out.println(rowCount);
+
+System.out.println(
+"Data inserted successfully!"
+);
+
+=========================================
+OUTPUT
+=========================================
+
+Database connection successful!
+
+1
+
+Data inserted successfully!
+
+=========================================
+STATEMENT VS PREPARED STATEMENT
+=========================================
+
+Statement
+----------
+- Static Query
+- Less Secure
+- Slower
+- SQL Injection Possible
+
+PreparedStatement
+------------------
+- Dynamic Query
+- More Secure
+- Faster
+- Prevents SQL Injection
+
+=========================================
+JDBC URL FORMAT
+=========================================
+
+jdbc:mysql://localhost:3306/database_name
+
+Example:
+
+jdbc:mysql://localhost:3306/employee_db
+
+=========================================
+TOPICS COVERED
+=========================================
+
+1. JDBC Introduction
+2. DriverManager
+3. Connection
+4. Statement
+5. PreparedStatement
+6. executeUpdate()
+7. Database Connection
+8. Insert Operation
+9. SQL Injection Prevention
+10. JDBC Architecture
+
+=========================================
+END OF DAY 06
+=========================================
