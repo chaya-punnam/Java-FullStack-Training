@@ -1,0 +1,477 @@
+=========================================
+DAY 09 - SPRING BOOT REST API PROJECT
+(DOCTOR MANAGEMENT SYSTEM)
+=========================================
+
+1. What is REST API?
+--------------------
+
+REST API (Representational State Transfer)
+is used for communication between client
+and server using HTTP methods.
+
+Examples:
+
+GET    -> Read Data
+POST   -> Insert Data
+PUT    -> Update Data
+DELETE -> Delete Data
+
+=========================================
+2. Project Creation
+=========================================
+
+Website:
+https://start.spring.io
+
+Dependencies Used:
+
+1. Spring Web
+2. Spring Data JPA
+3. MySQL Driver
+4. Validation
+5. Spring Boot DevTools
+
+Project Type:
+--------------
+Maven Project
+
+Language:
+----------
+Java
+
+Packaging:
+-----------
+Jar
+
+=========================================
+3. Project Structure
+=========================================
+
+DoctorApp
+│
+├── CONTROLLER
+│   └── DoctorController.java
+│
+├── ENTITY
+│   └── DoctorEntity.java
+│
+├── REPOSITORY
+│   └── DoctorRepository.java
+│
+├── SERVICE
+│   └── DoctorService.java
+│
+└── DoctorAppApplication.java
+
+=========================================
+4. Main Class
+=========================================
+
+@SpringBootApplication
+
+public class DoctorAppApplication {
+
+    public static void main(String[] args) {
+
+        SpringApplication.run(
+            DoctorAppApplication.class,
+            args
+        );
+    }
+}
+
+Purpose:
+---------
+Starts Spring Boot Application.
+
+=========================================
+5. Entity Layer
+=========================================
+
+Class:
+------
+DoctorEntity.java
+
+Purpose:
+--------
+Maps Java Object to Database Table.
+
+Annotations:
+
+@Entity
+--------
+Marks class as database entity.
+
+@Table(name="doctors")
+----------------------
+Maps class to doctors table.
+
+@Id
+----
+Primary Key.
+
+@GeneratedValue
+---------------
+Auto generates IDs.
+
+=========================================
+6. Validation Annotations
+=========================================
+
+@NotBlank
+----------
+Field cannot be empty.
+
+Example:
+
+@NotBlank
+private String doctorName;
+
+-----------------------------------------
+
+@Size(min=3,max=50)
+-------------------
+Controls string length.
+
+-----------------------------------------
+
+@Min(25)
+---------
+Minimum age allowed.
+
+-----------------------------------------
+
+@Max(60)
+---------
+Maximum age allowed.
+
+-----------------------------------------
+
+@Positive
+-----------
+Value must be greater than zero.
+
+Example:
+
+@Positive
+private int doctorSalary;
+
+=========================================
+7. Repository Layer
+=========================================
+
+@Repository
+
+public interface DoctorRepository
+extends JpaRepository
+<DoctorEntity,Integer>{
+
+}
+
+Purpose:
+---------
+Provides CRUD operations.
+
+Methods Available:
+
+save()
+
+findAll()
+
+findById()
+
+deleteById()
+
+count()
+
+existsById()
+
+=========================================
+8. Service Layer
+=========================================
+
+@Service
+
+public class DoctorService {
+
+}
+
+Purpose:
+---------
+Contains business logic.
+
+Methods:
+
+createDoctor()
+
+readAllDoctors()
+
+readParticularDoctor()
+
+deleteParticularDoctor()
+
+=========================================
+9. Controller Layer
+=========================================
+
+@RestController
+
+@RequestMapping("/doctor")
+
+Purpose:
+---------
+Handles client requests.
+
+=========================================
+10. POST API
+=========================================
+
+URL:
+
+POST
+
+/doctor/create
+
+Method:
+
+@PostMapping("/create")
+
+Purpose:
+---------
+Insert doctor data.
+
+Example JSON:
+
+{
+    "doctorName":"Ramu",
+    "doctorAge":31,
+    "doctorSpeciality":"Neurology",
+    "doctorSalary":55000
+}
+
+=========================================
+11. GET ALL API
+=========================================
+
+URL:
+
+GET
+
+/doctor/all
+
+Method:
+
+@GetMapping("/all")
+
+Purpose:
+---------
+Returns all doctors.
+
+=========================================
+12. GET PARTICULAR DOCTOR
+=========================================
+
+URL:
+
+GET
+
+/doctor/{doctorId}
+
+Example:
+
+/doctor/1
+
+Method:
+
+@GetMapping("/{doctorId}")
+
+Purpose:
+---------
+Returns one doctor record.
+
+=========================================
+13. DELETE API
+=========================================
+
+URL:
+
+DELETE
+
+/doctor/{doctorId}
+
+Example:
+
+/doctor/2
+
+Method:
+
+@DeleteMapping("/{doctorId}")
+
+Purpose:
+---------
+Deletes doctor record.
+
+=========================================
+14. Dependency Injection
+=========================================
+
+@Autowired
+
+Purpose:
+---------
+Automatically creates object.
+
+Example:
+
+@Autowired
+DoctorService doctorService;
+
+@Autowired
+DoctorRepository doctorRepository;
+
+=========================================
+15. application.properties
+=========================================
+
+spring.application.name=DoctorApp
+
+spring.datasource.url=
+jdbc:mysql://localhost:3306/doctor_db
+
+spring.datasource.username=root
+
+spring.datasource.password=******
+
+spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.show-sql=true
+
+server.port=8081
+
+=========================================
+16. Postman Testing
+=========================================
+
+Used to test APIs.
+
+Methods Tested:
+
+POST
+
+GET ALL
+
+GET BY ID
+
+DELETE
+
+=========================================
+17. Flow of Execution
+=========================================
+
+Postman Request
+       ↓
+Controller
+       ↓
+Service
+       ↓
+Repository
+       ↓
+Database
+
+=========================================
+18. Interview Questions
+=========================================
+
+Q1. What is REST API?
+
+A:
+REST API is used for communication
+between client and server.
+
+---------------------------------
+
+Q2. What is @RestController?
+
+A:
+Used to create REST APIs.
+
+---------------------------------
+
+Q3. What is @RequestMapping?
+
+A:
+Defines base URL.
+
+---------------------------------
+
+Q4. What is @PathVariable?
+
+A:
+Reads values from URL.
+
+---------------------------------
+
+Q5. What is @RequestBody?
+
+A:
+Converts JSON into Java Object.
+
+---------------------------------
+
+Q6. What is JpaRepository?
+
+A:
+Provides CRUD operations.
+
+---------------------------------
+
+Q7. What is @Autowired?
+
+A:
+Performs Dependency Injection.
+
+---------------------------------
+
+Q8. What is @Valid?
+
+A:
+Triggers validation rules.
+
+---------------------------------
+
+Q9. Difference between Controller and Service?
+
+Controller:
+Handles requests.
+
+Service:
+Contains business logic.
+
+---------------------------------
+
+Q10. What is Validation?
+
+A:
+Checks user input before saving data.
+
+=========================================
+TOPICS COVERED
+=========================================
+
+1. Spring Initializr
+2. Spring Boot
+3. REST API
+4. Entity Layer
+5. Repository Layer
+6. Service Layer
+7. Controller Layer
+8. Validation
+9. Postman
+10. CRUD Operations
+11. Dependency Injection
+12. JPA Repository
+
+=========================================
+END OF DAY 09
+=========================================
