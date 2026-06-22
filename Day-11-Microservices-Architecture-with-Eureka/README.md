@@ -9,6 +9,8 @@ This session focused on implementing a Microservices Architecture using Spring B
 ## Objectives
 
 * Understand Microservices Architecture.
+* Understand Spring IoC Container and Bean Management.
+* Implement Dependency Injection using Spring Beans.
 * Configure and deploy a Eureka Server.
 * Register microservices as Eureka Clients.
 * Implement inter-service communication using RestTemplate and WebClient.
@@ -36,7 +38,64 @@ Provides hospital-related operations and registers itself with Eureka Server.
 Provides doctor-related operations and communicates with HospitalApp through service discovery.
 
 ---
+## Spring IoC Container and Beans
 
+Spring Framework manages application objects using the Inversion of Control (IoC) Container. The IoC Container is responsible for creating, configuring, storing, and managing the lifecycle of objects known as Spring Beans.
+
+### Spring Beans
+
+A Bean is an object that is created and managed by the Spring IoC Container. Beans can be defined using annotations such as:
+
+* @Component
+* @Service
+* @Repository
+* @Controller
+* @RestController
+* @Bean
+
+Examples from the implementation include:
+
+```java
+@Bean
+public RestTemplate template() {
+    return new RestTemplate();
+}
+
+@Bean
+public WebClient webClient() {
+    return WebClient.builder().build();
+}
+```
+
+In this case, RestTemplate and WebClient objects are registered as Spring Beans and stored inside the IoC Container.
+
+### Dependency Injection
+
+Spring provides objects automatically using Dependency Injection. Instead of manually creating objects using the `new` keyword, dependencies can be injected using the `@Autowired` annotation.
+
+Example:
+
+```java
+@Autowired
+private RestTemplate template;
+
+@Autowired
+private WebClient webClient;
+```
+
+The Spring IoC Container automatically provides the required Bean instances whenever they are needed.
+
+### Benefits of IoC and Beans
+
+* Reduces object creation complexity.
+* Promotes loose coupling between components.
+* Improves maintainability and scalability.
+* Enables centralized object management.
+* Supports Dependency Injection throughout the application.
+
+The concepts of IoC Container and Beans form the foundation of Spring Framework and are extensively used in Spring Boot applications and Microservices architectures.
+
+---
 ## Synchronous Communication
 
 Synchronous communication requires the client application to wait until a response is received from the target service.
