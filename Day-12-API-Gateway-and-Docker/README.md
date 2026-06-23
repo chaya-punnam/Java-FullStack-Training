@@ -4,13 +4,11 @@
 
 This session focused on implementing an API Gateway in a Spring Boot Microservices Architecture and introducing Docker containerization.
 
-The API Gateway was configured as a centralized entry point for microservices, integrated with Eureka Service Discovery, and tested using Postman.
-
-Additionally, Docker was used to pull and run a MySQL container, enabling database deployment through containerization.
+The API Gateway was configured as a centralized entry point for microservices, integrated with Eureka Service Discovery, and tested using Postman. Additionally, Docker was used to pull and run a MySQL container, enabling database deployment through containerization.
 
 ---
 
-## Objectives
+# Objectives
 
 - Understand the purpose of API Gateway.
 - Create an API Gateway project using Spring Initializr.
@@ -64,6 +62,8 @@ Instead of communicating directly with multiple services, clients communicate on
 
 # Project Creation Using Spring Initializr
 
+The API Gateway project was generated from Spring Initializr.
+
 ## Configuration
 
 | Property | Value |
@@ -112,6 +112,127 @@ APIGateWay
 
 ---
 
+# Main Components
+
+## ApiGateWayApplication.java
+
+Application entry point.
+
+```java
+@SpringBootApplication
+public class ApiGateWayApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ApiGateWayApplication.class, args);
+    }
+}
+```
+
+---
+
+## application.properties
+
+Contains routing and Eureka configurations.
+
+### API Gateway Configuration
+
+```properties
+spring.application.name=APIGateWay
+
+server.port=9090
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+# Doctor Service Route
+spring.cloud.gateway.routes[0].id=doctor-microservice
+spring.cloud.gateway.routes[0].uri=http://localhost:8082
+spring.cloud.gateway.routes[0].predicates[0]=Path=/doctor/**
+
+# Hospital Service Route
+spring.cloud.gateway.routes[1].id=hospital-microservice
+spring.cloud.gateway.routes[1].uri=http://localhost:8081
+spring.cloud.gateway.routes[1].predicates[0]=Path=/hospital/**
+```
+
+---
+
+# Eureka Registration
+
+API Gateway was registered as a Eureka Client.
+
+After starting:
+
+- Eureka Server
+- DoctorApp
+- HospitalApp
+- API Gateway
+
+The Eureka Dashboard displayed:
+
+```text
+APIGATEWAY
+DOCTORAPP
+HOSPITALAPP
+```
+
+as active services.
+
+---
+
+# Postman Testing
+
+## Direct Access
+
+### Doctor Service
+
+```http
+http://localhost:8082/doctor/1
+```
+
+### Hospital Service
+
+```http
+http://localhost:8081/hospital/1
+```
+
+---
+
+## Through API Gateway
+
+### Doctor Service
+
+```http
+http://localhost:9090/doctor/1
+```
+
+### Hospital Service
+
+```http
+http://localhost:9090/hospital/1
+```
+
+The requests are forwarded through the Gateway.
+
+---
+
+# Docker
+
+## What is Docker?
+
+Docker is a containerization platform used to package and run applications in isolated environments called containers.
+
+---
+
+## Benefits of Docker
+
+- Platform Independence
+- Easy Deployment
+- Lightweight Containers
+- Faster Development
+- Consistent Environment
+
+---
+
 # Docker Commands Practiced
 
 ## Pull MySQL Image
@@ -120,17 +241,48 @@ APIGateWay
 docker pull mysql:oraclelinux9
 ```
 
+Downloads the MySQL image from Docker Hub.
+
+---
+
 ## Run MySQL Container
 
 ```bash
 docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=admin -p 9000:3306 mysql:oraclelinux9
 ```
 
+### Explanation
+
+| Option | Description |
+|----------|-------------|
+| --name mysql-container | Container Name |
+| MYSQL_ROOT_PASSWORD=admin | Root Password |
+| -p 9000:3306 | Port Mapping |
+| mysql:oraclelinux9 | Docker Image |
+
+---
+
 ## Enter Running Container
 
 ```bash
 docker exec -it mysql-container bash
 ```
+
+### Explanation
+
+#### docker exec
+
+Executes commands inside a running container.
+
+#### -it
+
+Interactive terminal mode.
+
+#### bash
+
+Starts Linux shell inside container.
+
+---
 
 ## Login to MySQL
 
@@ -142,6 +294,64 @@ Password:
 
 ```text
 admin
+```
+
+---
+
+# Docker Architecture
+
+```text
+Docker Client
+      |
+      v
+Docker Engine
+      |
+      v
+Docker Container
+      |
+      v
+MySQL Database
+```
+
+---
+
+# Concepts Learned
+
+## Microservices
+
+Independent deployable services.
+
+## API Gateway
+
+Centralized entry point for all requests.
+
+## Eureka Discovery
+
+Service registration and discovery.
+
+## Routing
+
+Forwarding requests to target microservices.
+
+## Docker
+
+Containerization platform.
+
+## Docker Image
+
+Blueprint for creating containers.
+
+## Docker Container
+
+Running instance of an image.
+
+## Port Mapping
+
+```text
+Host Port 9000
+        |
+        v
+Container Port 3306
 ```
 
 ---
