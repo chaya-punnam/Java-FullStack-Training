@@ -1,202 +1,245 @@
-=========================================
-DAY 07 - HIBERNATE FRAMEWORK
-============================
+# 📅 Day 07 – Hibernate Framework
 
-1. What is Hibernate?
+## 📌 Overview
+
+On Day 07, I learned the fundamentals of the **Hibernate Framework**, an ORM (Object Relational Mapping) framework that simplifies database operations in Java applications. I also learned how Hibernate maps Java objects to database tables and performs CRUD operations without writing JDBC boilerplate code.
 
 ---
 
-Hibernate is an ORM (Object Relational Mapping) Framework used to simplify database operations in Java applications.
+# 📚 Topics Covered
 
-Without Hibernate:
-Java --> JDBC --> Database
+* Introduction to Hibernate
+* Object Relational Mapping (ORM)
+* Maven Project Creation
+* Hibernate Dependencies
+* Entity Class
+* Constructors
+* Getters and Setters
+* Hibernate Configuration (`hibernate.cfg.xml`)
+* Hibernate Dialect
+* `hibernate.hbm2ddl.auto`
+* Entity Mapping
+* Hibernate Workflow
+* SessionFactory
+* Session
+* Transaction
+* `persist()` Method
+* Hibernate CRUD Basics
 
-With Hibernate:
-Java Objects --> Hibernate --> Database
+---
 
-## Advantages:
+# 🛠 Technologies Used
 
-1. Reduces JDBC boilerplate code.
-2. Automatically maps Java classes to database tables.
-3. Supports CRUD operations.
-4. Database independent.
-5. Improves productivity.
+## Backend
 
-=========================================
-2. What is ORM?
-===============
+* Java
+* Hibernate Framework
+* Maven
+* JDBC
+* MySQL
 
-ORM = Object Relational Mapping
+## Tools
 
-Object ---> Table
-Class ---> Table
-Object ---> Row
-Variable ---> Column
+* Eclipse IDE
+* MySQL Workbench
+* Maven
 
-Example:
+---
 
-## Java Class:
+# 📂 Project Structure
 
-class BookEntity {
-int bookId;
-String bookTitle;
-}
+```text
+FirstHibernateProject/
+│── src/
+│   ├── main/java/
+│   │   ├── Entity/
+│   │   ├── Main/
+│   │
+│   └── resources/
+│       └── hibernate.cfg.xml
+│
+├── pom.xml
+└── README.md
+```
 
-## Database Table:
+---
 
-## books
+# ⚙️ Maven Project Creation
 
-## bookId | bookTitle
+## IDE
 
-1      | Java
-2      | Python
+* Eclipse IDE
 
-Hibernate automatically maps the class to the table.
+## Project Type
 
-=========================================
-3. Maven Project Creation
-=========================
+* Maven Project
 
-## IDE Used:
+## Archetype
 
-Eclipse IDE
-
-## Project Type:
-
-Maven Project
-
-## Archetype Used:
-
+```text
 maven-archetype-quickstart
+```
 
-## Benefits of Maven:
+---
 
-1. Dependency Management
-2. Build Automation
-3. Easy Project Structure
-4. Download Required Libraries Automatically
+# 📦 Required Maven Dependencies
 
-## Standard Maven Structure:
+* Hibernate Core
+* MySQL Connector
+* Jakarta Persistence API
 
-src/main/java
-src/test/java
-pom.xml
+Maven automatically downloads all required libraries through **pom.xml**.
 
-=========================================
-4. Hibernate Dependencies
-=========================
+---
 
-Hibernate libraries are added through Maven dependencies in pom.xml.
+# 🧩 What is Hibernate?
 
-## Required Dependencies:
+Hibernate is an **ORM (Object Relational Mapping)** Framework used to simplify database operations in Java applications.
 
-1. Hibernate Core
-2. MySQL Connector
-3. Jakarta Persistence API
+### Without Hibernate
 
-Maven automatically downloads all required JAR files.
+```text
+Java → JDBC → Database
+```
 
-=========================================
-5. Entity Class
-===============
+### With Hibernate
 
-## Entity Class:
+```text
+Java Objects → Hibernate → Database
+```
 
+### Advantages
+
+* Reduces JDBC boilerplate code
+* Maps Java classes to database tables automatically
+* Supports CRUD operations
+* Database Independent
+* Improves developer productivity
+
+---
+
+# 🔄 What is ORM?
+
+ORM stands for **Object Relational Mapping**.
+
+| Java     | Database |
+| -------- | -------- |
+| Class    | Table    |
+| Object   | Row      |
+| Variable | Column   |
+
+### Example
+
+#### Java Entity
+
+```java
+class BookEntity {
+
+    int bookId;
+    String bookTitle;
+
+}
+```
+
+#### Database Table
+
+| bookId | bookTitle |
+| ------ | --------- |
+| 1      | Java      |
+| 2      | Python    |
+
+Hibernate automatically maps the Java class to the database table.
+
+---
+
+# 🏗 Entity Class
+
+Entity Class:
+
+```text
 BookEntity.java
+```
 
-## Purpose:
+### Annotations Used
 
-Represents a database table.
+* `@Entity`
+* `@Table`
+* `@Id`
 
-## Annotations Used:
+### Example
 
-## @Entity
-
-Marks the class as a Hibernate Entity.
-
-## @Table(name="books")
-
-Maps the class to the "books" table.
-
-## @Id
-
-Specifies the Primary Key column.
-
-Example:
-
+```java
 @Entity
 @Table(name="books")
 public class BookEntity {
 
-```
-@Id
-private int bookId;
+    @Id
+    private int bookId;
 
-private String bookTitle;
-private int bookPrice;
-private String bookAuthor;
-```
-
+    private String bookTitle;
+    private int bookPrice;
+    private String bookAuthor;
 }
+```
 
-=========================================
-6. Constructors
-===============
+---
 
-## Parameterized Constructor:
+# 🔨 Constructors
 
-Used to initialize values.
-
-## Default Constructor:
+### Default Constructor
 
 Required by Hibernate.
 
-Example:
-
+```java
 public BookEntity() {
+
 }
+```
 
-=========================================
-7. Getters and Setters
-======================
+### Parameterized Constructor
 
-## Purpose:
+Used to initialize object values.
+
+---
+
+# 🔑 Getters and Setters
 
 Used to access and modify private variables.
 
 Example:
 
+```java
 public int getBookId() {
-return bookId;
+    return bookId;
 }
 
 public void setBookId(int bookId) {
-this.bookId = bookId;
+    this.bookId = bookId;
 }
+```
 
-=========================================
-8. Hibernate Configuration File
-===============================
+---
 
-## File Name:
+# ⚙️ Hibernate Configuration File
 
+Configuration File:
+
+```text
 hibernate.cfg.xml
+```
 
-## Purpose:
+### Contains
 
-Used to configure database connection.
+* Database URL
+* Username
+* Password
+* Hibernate Dialect
+* Table Creation Strategy
+* Entity Mapping
 
-## Contains:
+Example
 
-1. Database URL
-2. Username
-3. Password
-4. Hibernate Dialect
-5. Table Creation Strategy
-6. Entity Mapping
-
-Example:
-
+```xml
 <property name="hibernate.connection.url">
 jdbc:mysql://localhost:3306/book_db
 </property>
@@ -208,188 +251,171 @@ root
 <property name="hibernate.connection.password">
 root
 </property>
+```
 
-=========================================
-9. Hibernate Dialect
-====================
+---
 
-Property:
+# 🗄 Hibernate Dialect
 
+Property
+
+```text
 hibernate.dialect
+```
 
-## Purpose:
+Example
 
-Tells Hibernate which database is being used.
-
-Example:
-
+```text
 org.hibernate.dialect.MySQLDialect
+```
 
-=========================================
-10. hbm2ddl.auto
-================
+Purpose:
 
-Property:
+Specifies which database Hibernate is communicating with.
 
+---
+
+# 🔄 hbm2ddl.auto
+
+Property
+
+```text
 hibernate.hbm2ddl.auto
+```
 
-## Options:
+Options
 
-## create
+* `create`
+* `update`
+* `create-drop`
+* `validate`
 
-Drops old table and creates new table.
+Example
 
-## update
-
-Updates existing table without deleting data.
-
-## create-drop
-
-Creates table and deletes after execution.
-
-## validate
-
-Checks schema compatibility.
-
-Example:
-
+```xml
 <property name="hibernate.hbm2ddl.auto">
 update
 </property>
+```
 
-=========================================
-11. Mapping Entity
-==================
+---
 
-## Purpose:
+# 📝 Entity Mapping
 
-Registers entity class with Hibernate.
+Registers the entity class with Hibernate.
 
-Example:
+Example
 
-<mapping class=
-"com.abc.demo.FirstHibernateProject.BookEntity"/>
+```xml
+<mapping class="com.abc.demo.FirstHibernateProject.BookEntity"/>
+```
 
-=========================================
-12. Hibernate Workflow
-======================
+---
 
-## Step 1:
+# 🔄 Hibernate Workflow
 
-Create Configuration Object
-
-Configuration config =
-new Configuration();
-
-## Step 2:
-
-Load Configuration File
-
-config.configure("hibernate.cfg.xml");
-
-## Step 3:
-
+```text
+Configuration
+      │
+      ▼
+Load hibernate.cfg.xml
+      │
+      ▼
 Build SessionFactory
-
-SessionFactory factory =
-config.buildSessionFactory();
-
-## Step 4:
-
+      │
+      ▼
 Open Session
-
-Session session =
-factory.openSession();
-
-## Step 5:
-
+      │
+      ▼
 Begin Transaction
-
-Transaction t =
-session.beginTransaction();
-
-## Step 6:
-
-Perform Operation
-
-session.persist(object);
-
-## Step 7:
-
+      │
+      ▼
+Perform CRUD Operation
+      │
+      ▼
 Commit Transaction
+```
 
-t.commit();
+---
 
-=========================================
-13. SessionFactory
-==================
+# 🏭 SessionFactory
 
-SessionFactory is responsible for creating Session objects.
+Creates Session objects.
 
-One SessionFactory is generally created per application.
+Example
 
-Example:
-
+```java
 SessionFactory factory =
 config.buildSessionFactory();
+```
 
-=========================================
-14. Session
-===========
+---
 
-Session acts as a connection between Java application and database.
+# 🔗 Session
 
-## Used for:
+Acts as the connection between the Java application and the database.
 
-1. Insert
-2. Update
-3. Delete
-4. Retrieve
+Used for:
 
-Example:
+* Insert
+* Update
+* Delete
+* Retrieve
 
+Example
+
+```java
 Session session =
 factory.openSession();
+```
 
-=========================================
-15. Transaction
-===============
+---
 
-Transaction ensures data consistency.
+# 💾 Transaction
 
-Methods:
+Ensures data consistency.
 
-beginTransaction()
-commit()
+Methods
 
-Example:
+```java
+beginTransaction();
+commit();
+```
 
-Transaction t =
-session.beginTransaction();
+Example
+
+```java
+Transaction t = session.beginTransaction();
 
 t.commit();
+```
 
-=========================================
-16. Persist Method
-==================
+---
 
-Method:
+# 📥 persist() Method
 
+Method
+
+```java
 session.persist(object);
+```
 
-## Purpose:
+Purpose
 
-Inserts object data into database table.
+Used to insert Java object data into the database.
 
-Example:
+Example
 
-session.persist(b1);
-session.persist(b2);
+```java
+session.persist(book1);
+session.persist(book2);
+```
 
-=========================================
-17. Example Execution
-=====================
+---
 
+# 💻 Example
+
+```java
 BookEntity b1 = new BookEntity();
 
 b1.setBookId(12);
@@ -397,69 +423,105 @@ b1.setBookTitle("Java Programming");
 b1.setBookPrice(400);
 
 session.persist(b1);
+```
 
-## Result:
+---
 
-A new record is inserted into the books table.
+# 📊 Output
 
-=========================================
-18. Output
-==========
+## Database
 
-## Database Created:
-
+```text
 book_db
+```
 
-## Table Created:
+## Table
 
+```text
 books
+```
 
-## Records Inserted:
+## Records Inserted
 
-Book ID : 12
-Book Title : Java Programming
-Book Price : 400
+| Book ID | Book Title         | Price |
+| ------- | ------------------ | ----- |
+| 12      | Java Programming   | 400   |
+| 13      | Python Programming | 300   |
 
-Book ID : 13
-Book Title : Python Programming
-Book Price : 300
+---
 
-=========================================
-19. Interview Questions
-=======================
+# 🎯 Learning Outcomes
 
-Q1. What is Hibernate?
-A. Hibernate is an ORM Framework used to simplify database operations.
+By completing this task, I learned how to:
 
-Q2. What is ORM?
-A. Object Relational Mapping.
+* Understand Object Relational Mapping (ORM).
+* Configure Hibernate using `hibernate.cfg.xml`.
+* Create Entity classes using annotations.
+* Use SessionFactory and Session.
+* Perform database operations using Hibernate.
+* Manage Transactions.
+* Insert records using `persist()`.
+* Connect Java applications with MySQL using Hibernate.
 
-Q3. Difference between JDBC and Hibernate?
-A.
-JDBC -> Manual SQL Queries.
-Hibernate -> Object based operations.
+---
 
-Q4. What is SessionFactory?
-A. Factory used to create Session objects.
+# 💼 Interview Questions
 
-Q5. What is Session?
-A. Used to perform CRUD operations.
+### 1. What is Hibernate?
 
-Q6. What is @Entity?
-A. Marks a class as Hibernate Entity.
+Hibernate is an ORM framework used to simplify database operations in Java.
 
-Q7. What is @Table?
-A. Maps class to database table.
+### 2. What is ORM?
 
-Q8. What is @Id?
-A. Represents Primary Key.
+Object Relational Mapping.
 
-Q9. Why is default constructor required?
-A. Hibernate uses it internally to create objects.
+### 3. Difference between JDBC and Hibernate?
 
-Q10. What does session.persist() do?
-A. Inserts object data into database.
+* JDBC → Manual SQL Queries
+* Hibernate → Object-Oriented Database Operations
 
-=========================================
-END OF DAY 07
-=============
+### 4. What is SessionFactory?
+
+Creates Session objects.
+
+### 5. What is Session?
+
+Used to perform CRUD operations.
+
+### 6. What is `@Entity`?
+
+Marks a Java class as a Hibernate Entity.
+
+### 7. What is `@Table`?
+
+Maps the Entity class to a database table.
+
+### 8. What is `@Id`?
+
+Represents the Primary Key.
+
+### 9. Why is a default constructor required?
+
+Hibernate uses it internally to create objects.
+
+### 10. What does `session.persist()` do?
+
+It inserts object data into the database.
+
+---
+
+# 🚀 Day 07 Summary
+
+✅ Learned the fundamentals of the Hibernate Framework.
+
+✅ Understood Object Relational Mapping (ORM).
+
+✅ Created a Maven project with Hibernate dependencies.
+
+✅ Configured Hibernate using `hibernate.cfg.xml`.
+
+✅ Created Entity classes using Hibernate annotations.
+
+✅ Learned SessionFactory, Session, Transaction, and `persist()`.
+
+✅ Successfully inserted records into a MySQL database using Hibernate.
