@@ -1,214 +1,264 @@
-=========================================
-DAY 08 - SPRING BOOT & SPRING DATA JPA
-======================================
+# 📅 Day 08 – Spring Boot & Spring Data JPA
 
-1. What is Spring Framework?
+## 📌 Overview
+
+On Day 08, I learned the fundamentals of **Spring Boot** and **Spring Data JPA**. I explored how Spring Boot simplifies Java application development with minimal configuration and how Spring Data JPA provides built-in CRUD operations without writing JDBC or Hibernate session management code. I also created a Spring Boot Maven project, configured database connectivity, and performed database operations using JPA repositories.
 
 ---
 
+# 📚 Topics Covered
+
+* Introduction to Spring Framework
+* Spring Boot
+* Spring Initializr
+* Maven Project Structure
+* Spring Data JPA
+* Entity Class
+* Repository Layer
+* Service Layer
+* CRUD Operations
+* `application.properties`
+* Hibernate DDL Auto
+* Dependency Injection
+* Built-in JPA Methods
+
+---
+
+# 🛠 Technologies Used
+
+## Backend
+
+* Java
+* Spring Framework
+* Spring Boot
+* Spring Data JPA
+* Hibernate
+* MySQL
+* Maven
+
+## Tools
+
+* Eclipse IDE
+* Spring Initializr
+* MySQL Workbench
+* Maven
+
+---
+
+# 🚀 Spring Boot Project Creation
+
+## Spring Initializr
+
+Website:
+
+```text
+https://start.spring.io
+```
+
+### Project Configuration
+
+| Property     | Value |
+| ------------ | ----- |
+| Project      | Maven |
+| Language     | Java  |
+| Spring Boot  | 4.1.0 |
+| Packaging    | Jar   |
+| Java Version | 17    |
+
+### Dependencies
+
+* Spring Data JPA
+* MySQL Driver
+
+### Steps
+
+1. Generate the project.
+2. Download the ZIP file.
+3. Extract the project.
+4. Import into Eclipse as a Maven Project.
+
+---
+
+# 📂 Maven Project Structure
+
+```text
+FirstSpringBootMavenProject/
+│── src/
+│   ├── main/
+│   │   ├── java/
+│   │   └── resources/
+│   │        └── application.properties
+│   │
+│   └── test/
+│
+├── pom.xml
+└── target/
+```
+
+---
+
+# 🌱 What is Spring Framework?
+
 Spring is a Java Framework used to develop enterprise applications.
 
-## Features:
+### Features
 
-1. Dependency Injection
-2. Aspect Oriented Programming
-3. MVC Architecture
-4. Transaction Management
-5. Database Integration
+* Dependency Injection
+* Aspect Oriented Programming (AOP)
+* MVC Architecture
+* Transaction Management
+* Database Integration
 
-=========================================
-2. What is Spring Boot?
-=======================
+---
 
-Spring Boot is an extension of Spring Framework.
+# 🚀 What is Spring Boot?
 
-## Advantages:
+Spring Boot is an extension of the Spring Framework that simplifies application development by providing auto-configuration and an embedded server.
 
-1. Faster Development
-2. Auto Configuration
-3. Embedded Server
-4. Production Ready
-5. Less Configuration
+### Advantages
 
-## Without Spring Boot:
+* Faster Development
+* Auto Configuration
+* Embedded Server
+* Production Ready
+* Less Configuration
 
+### Without Spring Boot
+
+```text
 Large XML Configuration
+```
 
-## With Spring Boot:
+### With Spring Boot
 
+```text
 Minimal Configuration
+```
 
-=========================================
-3. Spring Initializr
-====================
+---
 
-## Website:
+# 💾 Spring Data JPA
 
-https://start.spring.io
+Spring Data JPA simplifies database operations using repository interfaces.
 
-## Project Settings:
+### Advantages
 
-Project Type : Maven
+* No JDBC Code
+* No Hibernate Session Handling
+* Less Boilerplate Code
+* Built-in CRUD Operations
 
-Language :
-Java
+---
 
-Spring Boot Version :
-4.1.0
+# 🗂 Entity Class
 
-Packaging :
-Jar
+Entity Class:
 
-Java Version :
-17
-
-## Dependencies:
-
-1. Spring Data JPA
-2. MySQL Driver
-
-## After clicking GENERATE:
-
-1. ZIP file downloaded.
-2. Extract ZIP file.
-3. Import into Eclipse as Maven Project.
-
-=========================================
-4. Maven Project Structure
-==========================
-
-## src/main/java
-
-Contains Java Source Files
-
-## src/main/resources
-
-Contains application.properties
-
-## pom.xml
-
-Contains Dependencies
-
-## target
-
-Compiled Files
-
-=========================================
-5. Spring Data JPA
-==================
-
-Spring Data JPA is used to simplify database operations.
-
-## Advantages:
-
-1. No JDBC Code
-2. No Hibernate Session Handling
-3. Less Code
-4. Built-in CRUD Operations
-
-=========================================
-6. Entity Class
-===============
-
-## Class:
-
+```text
 FoodEntity.java
+```
 
-## Purpose:
+### Purpose
 
-Represents Database Table.
+Represents a database table.
 
-Annotations:
+### Annotations Used
 
-## @Entity
+* `@Entity`
+* `@Table`
+* `@Id`
 
-Marks class as Entity.
+### Example
 
-## @Table(name="foods")
-
-Maps class to foods table.
-
-## @Id
-
-Represents Primary Key.
-
-Example:
-
+```java
 @Entity
-@Table(name="foods")
+@Table(name = "foods")
 public class FoodEntity {
 
-```
-@Id
-private int foodID;
+    @Id
+    private int foodID;
 
-private String foodName;
-private int foodCost;
-private int foodRating;
-```
-
+    private String foodName;
+    private int foodCost;
+    private int foodRating;
 }
+```
 
-=========================================
-7. Repository Layer
-===================
+---
 
-## Class:
+# 📦 Repository Layer
 
+Repository Interface:
+
+```text
 FoodRepository.java
+```
 
-## Purpose:
+### Annotation
 
-Communicates with Database.
+```java
+@Repository
+```
 
-Code:
+### Example
 
+```java
 @Repository
 public interface FoodRepository
-extends JpaRepository<FoodEntity,Integer> {
+extends JpaRepository<FoodEntity, Integer> {
 
 }
+```
 
-## JpaRepository Provides:
+### JpaRepository Methods
 
-1. save()
-2. findAll()
-3. findById()
-4. deleteById()
-5. count()
-6. existsById()
+* `save()`
+* `findAll()`
+* `findById()`
+* `deleteById()`
+* `count()`
+* `existsById()`
 
-=========================================
-8. Service Layer
-================
+---
 
-## Class:
+# ⚙️ Service Layer
 
+Service Class:
+
+```text
 FoodService.java
+```
 
-Annotation:
+### Annotation
 
+```java
 @Service
+```
 
-## Purpose:
+### Dependency Injection
 
-Contains Business Logic.
-
-Dependency Injection:
-
+```java
 @Autowired
-FoodRepository foodRepo;
+private FoodRepository foodRepo;
+```
 
-=========================================
-9. Insert Operation
-===================
+### Purpose
 
-Method:
+Contains business logic and communicates with the repository layer.
 
+---
+
+# ➕ Insert Operation
+
+Method
+
+```java
 foodRepo.save(foodObject);
+```
 
-Example:
+### Example
 
+```java
 FoodEntity f1 = new FoodEntity();
 
 f1.setFoodID(1);
@@ -217,244 +267,229 @@ f1.setFoodCost(100);
 f1.setFoodRating(4);
 
 foodRepo.save(f1);
+```
 
-## Output:
+### Output
 
-Data saved successfully.
+```text
+Data Saved Successfully
+```
 
-=========================================
-10. Read All Records
-====================
+---
 
-Method:
+# 📖 Read All Records
 
+Method
+
+```java
 foodRepo.findAll();
+```
 
-Example:
+### Example
 
-List<FoodEntity> foods =
-foodRepo.findAll();
+```java
+List<FoodEntity> foods = foodRepo.findAll();
+```
 
-## Returns:
+Returns all records from the database.
 
-All records from foods table.
+---
 
-=========================================
-11. Read Particular Record
-==========================
+# 🔍 Read Particular Record
 
-Method:
+Method
 
+```java
 foodRepo.findById(id);
+```
 
-Example:
+### Example
 
+```java
 FoodEntity food =
 foodRepo.findById(2).get();
+```
 
-## Returns:
+Returns the food record with the given ID.
 
-Food record with ID = 2
+---
 
-=========================================
-12. Delete Record
-=================
+# ❌ Delete Record
 
-Method:
+Method
 
+```java
 foodRepo.deleteById(id);
+```
 
-Example:
+### Example
 
+```java
 foodRepo.deleteById(2);
+```
 
-## Output:
+Deletes the specified record from the database.
 
-Food deleted successfully.
+---
 
-=========================================
-13. application.properties
-==========================
+# ⚙️ application.properties
 
-## Purpose:
+Stores application and database configuration.
 
-Stores Database Configuration.
+### Example
 
-Properties:
+```properties
+spring.application.name=FirstSpringBootMavenProject
 
-spring.application.name=
-FirstSpringBootMavenProject
-
-spring.datasource.url=
-jdbc:mysql://localhost:3306/food_db
-
+spring.datasource.url=jdbc:mysql://localhost:3306/food_db
 spring.datasource.username=root
-
 spring.datasource.password=your_password
 
 spring.jpa.hibernate.ddl-auto=update
-
 spring.jpa.show-sql=true
 
 server.port=9999
 
-spring.jpa.properties.hibernate.dialect=
-org.hibernate.dialect.MySQLDialect
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+```
 
-=========================================
-14. hibernate.ddl-auto
-======================
+---
 
-## update
+# 🗄 Hibernate DDL Auto
 
-Updates existing tables.
+| Option      | Description                                |
+| ----------- | ------------------------------------------ |
+| update      | Updates existing tables                    |
+| create      | Drops old tables and creates new ones      |
+| create-drop | Creates and deletes tables after execution |
+| validate    | Validates schema                           |
 
-## create
+---
 
-Drops old table and creates new table.
+# 📚 Common JPA Repository Methods
 
-## create-drop
+| Method         | Purpose                |
+| -------------- | ---------------------- |
+| `save()`       | Insert / Update        |
+| `findAll()`    | Read All Records       |
+| `findById()`   | Read Particular Record |
+| `deleteById()` | Delete Record          |
+| `count()`      | Count Records          |
+| `existsById()` | Check Record Existence |
 
-Creates and deletes table.
+---
 
-## validate
+# 🔄 Spring Boot Workflow
 
-Validates schema.
-
-=========================================
-15. Common JPA Methods
-======================
-
-## save()
-
-Insert / Update
-
-## findAll()
-
-Read all records
-
-## findById()
-
-Read particular record
-
-## deleteById()
-
-Delete record
-
-## count()
-
-Count records
-
-## existsById()
-
-Check record exists
-
-=========================================
-16. Spring Boot Workflow
-========================
-
+```text
 Entity
-|
+   │
+   ▼
 Repository
-|
+   │
+   ▼
 Service
-|
+   │
+   ▼
 Database
-
-=========================================
-17. Interview Questions
-=======================
-
-Q1. What is Spring Boot?
-
-A:
-Spring Boot is a framework used to develop Java applications with minimum configuration.
+```
 
 ---
 
-Q2. What is Spring Data JPA?
+# 🎯 Learning Outcomes
 
-A:
-Spring Data JPA simplifies database operations using repositories.
+By completing this task, I learned how to:
 
----
-
-Q3. What is @Entity?
-
-A:
-Used to map Java class with database table.
-
----
-
-Q4. What is @Table?
-
-A:
-Used to specify table name.
+* Create Spring Boot applications using Spring Initializr.
+* Configure Maven-based Spring Boot projects.
+* Use Spring Data JPA for database operations.
+* Create Entity classes using JPA annotations.
+* Implement Repository and Service layers.
+* Perform CRUD operations using `JpaRepository`.
+* Configure database connectivity using `application.properties`.
+* Understand the Spring Boot application architecture.
 
 ---
 
-Q5. What is @Id?
+# 💼 Interview Questions
 
-A:
-Represents Primary Key.
+### 1. What is Spring Boot?
 
----
+Spring Boot is a framework that simplifies Java application development using minimal configuration.
 
-Q6. What is JpaRepository?
+### 2. What is Spring Data JPA?
 
-A:
-Provides built-in CRUD methods.
+Spring Data JPA simplifies database operations using repository interfaces.
 
----
+### 3. What is `@Entity`?
 
-Q7. What is @Autowired?
+Maps a Java class to a database table.
 
-A:
+### 4. What is `@Table`?
+
+Specifies the database table name.
+
+### 5. What is `@Id`?
+
+Represents the Primary Key of an entity.
+
+### 6. What is `JpaRepository`?
+
+Provides built-in CRUD methods for database operations.
+
+### 7. What is `@Autowired`?
+
 Used for Dependency Injection.
 
+### 8. What is `@Service`?
+
+Marks a class as the Service Layer containing business logic.
+
+### 9. Difference between Hibernate and Spring Data JPA?
+
+**Hibernate**
+
+* Uses `SessionFactory` and `Session`
+* Requires more configuration
+
+**Spring Data JPA**
+
+* Uses `JpaRepository`
+* Less code and easier CRUD operations
+
+### 10. What is `application.properties`?
+
+Stores application and database configuration properties.
+
 ---
 
-Q8. What is @Service?
+# 📖 Topics Covered Summary
 
-A:
-Marks a class as Service Layer.
-
----
-
-Q9. Difference between Hibernate and Spring Data JPA?
-
-## Hibernate:
-
-Need SessionFactory, Session.
-
-## Spring Data JPA:
-
-Uses Repository Interface.
-
-Less code.
+* Spring Initializr
+* Maven Project
+* Spring Boot
+* Spring Data JPA
+* Entity Class
+* Repository Layer
+* Service Layer
+* CRUD Operations
+* application.properties
+* Dependency Injection
 
 ---
 
-Q10. What is application.properties?
+# 🚀 Day 08 Summary
 
-A:
-Stores application configuration.
+✅ Learned the fundamentals of **Spring Framework** and **Spring Boot**.
 
-=========================================
-TOPICS COVERED
-==============
+✅ Created a **Spring Boot Maven Project** using Spring Initializr.
 
-1. Spring Initializr
-2. Maven Project
-3. Spring Boot
-4. Spring Data JPA
-5. Entity Class
-6. Repository Layer
-7. Service Layer
-8. CRUD Operations
-9. application.properties
-10. Dependency Injection
+✅ Configured **Spring Data JPA** with MySQL.
 
-=========================================
-END OF DAY 08
-=============
+✅ Created **Entity**, **Repository**, and **Service** layers.
+
+✅ Performed CRUD operations using `JpaRepository`.
+
+✅ Configured the application using `application.properties`.
+
+✅ Understood the complete Spring Boot application workflow.
