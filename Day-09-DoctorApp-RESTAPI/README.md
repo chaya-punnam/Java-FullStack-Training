@@ -440,7 +440,6 @@ By completing this task, I learned how to:
 
 ---
 
-# 💼 Interview Questions
 
 ### 1. What is REST API?
 
